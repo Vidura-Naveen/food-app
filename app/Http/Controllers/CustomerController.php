@@ -33,7 +33,7 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
         $data = $request->validated();
-        $post = Customer::create($data);
+        Customer::create($data);
         // return redirect('Customer/Create');
     }
 
@@ -65,7 +65,7 @@ class CustomerController extends Controller
         $data = $request->validated();
 
         $customer->update($data);
-        // return redirect('/');
+        return redirect()->route('customer.view');
     }
 
     /**

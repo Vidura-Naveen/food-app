@@ -22,18 +22,30 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-//indexPages
-Route::get('/customer', [CustomerController::class, 'index'])->name('customerview')->middleware(['auth']);
-Route::get('/food', [FoodController::class,'index'])->name('foodview')->middleware(['auth']);
-//createFormPages
-Route::get('/customer/create', [CustomerController::class, 'create']);
-Route::get('/food/create',[FoodController::class,'create']);
-//Save and  Store
-Route::post('/customer/save', [CustomerController::class, 'store']);
-Route::post('/food/save', [FoodController::class, 'store']);
+
+    Route::prefix('customer')->group(function () {
+        Route::get('/', [CustomerController::class, 'index'])->name('customerview');
+        Route::get('/create', [CustomerController::class, 'create']);
+        Route::post('/customer/save', [CustomerController::class, 'store'])->name('customer.save');
+        Route::delete('/delete/{customer}', [CustomerController::class, 'destroy']);
+        Route::get('/edit/{customer}', [CustomerController::class, 'edit']);
+        Route::put('/customer/update/{customer}', [CustomerController::class, 'update']);
+        Route::get('/{customer}', [CustomerController::class, 'show']);
+
+    });
+
+
+    Route::prefix('food')->group(function () {
+        Route::get('/', [FoodController::class, 'index'])->name('foodview');
+        Route::get('/create', [FoodController::class, 'create']);
+        Route::post('/create/save', [FoodController::class, 'store']);
+        Route::delete('/delete/{food}', [FoodController::class, 'destroy']);
+        Route::get('/{food}/edit', [FoodController::class, 'edit']);
+        Route::put('/update/{food}', [FoodController::class, 'update']);
+    });
 });
-//indexPages
-// Route::get('/customer', [CustomerController::class, 'index'])->name('customerview')->middleware(['auth']);
-// Route::get('/food', [FoodController::class, 'index'])->name('foodview')->middleware(['auth']);
+
+
+
 
 

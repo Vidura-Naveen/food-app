@@ -2,11 +2,18 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue';
-const form = useForm({
-  formcsname: '',
-  formcsformnum: '',
-  formcsdetails: '',
+import { defineProps } from 'vue';
+
+let props = defineProps({
+    customerpass: Object
 })
+
+const form = useForm({
+  formcsname: props.customerpass ? props.customerpass.csname : 'aa',
+  formcsformnum: props.customerpass ? props.customerpass.csphonenum : '',
+  formcsdetails: props.customerpass ? props.customerpass.csdetails : '',
+});
+// dd(props);
 </script>
 
 
@@ -23,7 +30,7 @@ const form = useForm({
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="container">
         <h2 class="my-4">Contact Form</h2>
-        <form >
+        <form @submit.prevent="form.put(`/customer/update/${customerpass.id}`)">
             <div class="mb-3">
                 <label for="cname" class="form-label">Company Name</label>
                 <input type="text"  v-model="form.formcsname" class="form-control" id="cname" name="cname" placeholder="Enter company name" required>

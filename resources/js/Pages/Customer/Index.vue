@@ -57,9 +57,9 @@ defineProps({
                                     <td> {{ customersv.csname }} </td>
                                     <td> {{ customersv.csphonenum }} </td>
                                     <td> {{ customersv.csdetails }} </td>
-                                    <td> <Link :href="`#`">Read More</Link> </td>
-                                    <td> <Link :href="`#`">Edit Post</Link></td>
-                                    <td> <Link :href="`#`" method="DELETE">Delete Post</Link> </td>
+                                    <td> <Link :href="`/customer/${customersv.id}`">Read More</Link> </td>
+                                    <td> <Link :href="`/customer/edit/${customersv.id}`">Edit Post</Link></td>
+                                    <td> <Link :href="`/customer/delete/${customersv.id}`" method="DELETE">Delete Post</Link> </td>
                               </tr>
                             </tbody>
                           </table>
